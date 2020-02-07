@@ -1,3 +1,5 @@
 
 *.zip
+*.txt
 project01/target/
+aux/
