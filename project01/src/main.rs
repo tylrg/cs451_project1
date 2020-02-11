@@ -1,5 +1,6 @@
 use std::env;
 use std::fs::File;
+use std::io;
 use std::io::prelude::*;
 
 //main method duh
@@ -24,7 +25,7 @@ fn main() -> std::io::Result<()> {
     let mut file = File::open("foo.txt")?;
     let mut contents = String::new();
     file.read_to_string(&mut contents)?;
-    //println!("{}",contents);
+    println!("{}",contents);
 
     Ok(())//got to the end of the file and yeah it might work
 }
@@ -39,9 +40,9 @@ fn write_message(filename: &str,message: &str){
     println!("Embedding the message {} in the file {}",message,filename)
 }
 
-fn read_byte_by_byte(path: &str)->Result<Vec<u8>, io:Error>{
-    println!("Fuck")
-}
+// fn read_byte_by_byte(path: &str)->Result<Vec<u8>, io::Error>{
+//     Ok()
+// }
 
 fn set_bit(byte: u8, position: u8)->u8{
     match position{
