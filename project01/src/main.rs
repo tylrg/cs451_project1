@@ -76,7 +76,9 @@ fn read_byte_by_byte(path: &str)-> Result<Vec<u8>,io::Error>{
         if index%8 == 0{
             binary_values.push(binary);
             let s = format!("{:b}",binary);
-            println!("{} {}",s);
+            let ch = binary as char;
+            let hex = format!("{:x}",binary);
+            println!("{} {} {}",s,hex,ch);
             index=0;
             binary=0;
         }
