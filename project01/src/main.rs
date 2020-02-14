@@ -22,7 +22,7 @@ fn main() -> std::io::Result<()> {
         _=>eprintln!("Need to have at most two arguments"),//default case
     }
 
-    let _ret_val = read_byte_by_byte(&args[1])?;    
+    let _ret_val = read_byte_by_byte(&args[1])?;
     Ok(())//got to the end of the file and yeah it might work
 }
 
@@ -46,22 +46,19 @@ fn read_byte_by_byte(path: &str)-> Result<Vec<u8>,io::Error>{
                 panic!("What the fuck is happening"); 
             }
         }
-        //i+=1;
+        i+=1;
     }
 
 
     i = 0;
-    let binary:u8 = 0000_0000;
-    let s = format!("{:b}",binary);
-
     let mut binary_values = vec![0u8,0];
+    let mut message = vec![0 as char,'0'];
     let mut index = 0;
     let mut binary:u8 = 0000_0000;
     let mut nl_count = 0;
-    //let s = format!("{:b}",binary);
     for &byte in &bytes{
-        //let byte_val = byte as u8;
         if nl_count >=3{
+            
             if byte%2 != 0 {
                 binary = set_bit(binary,index);
             }
@@ -69,9 +66,18 @@ fn read_byte_by_byte(path: &str)-> Result<Vec<u8>,io::Error>{
             index+=1;
             if index%8 == 0{
                 binary_values.push(binary);
+                
                 let s = format!("{:b}",binary);
+                println!("VALUE ADDED TO LIBRARY: {}" , s);
                 let ch = binary as char;
                 let hex = format!("{:x}",binary);
+                message.push(ch);
+                if binary == 0{
+                    //message.push('0');
+                    println!("Message :{:?}",message);
+                    println!("Binary Values: {:?}",binary_values);
+                    break;
+                }
                 println!("{} {} {}",s,hex,ch);
                 index=0;
                 binary=0;
@@ -83,6 +89,8 @@ fn read_byte_by_byte(path: &str)-> Result<Vec<u8>,io::Error>{
             println!("FOUND A NEWLINE");
         }
     }
+
+
     
 
     Ok(bytes)
