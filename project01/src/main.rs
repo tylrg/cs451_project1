@@ -32,7 +32,7 @@ fn read_byte_by_byte(path: &str)-> Result<Vec<u8>,io::Error>{
     let mut bytes = vec![0u8,0];
     let mut byte_buffer = [0u8,8];
 
-    //let mut i = 0;
+    let mut i = 0;
     loop{
         match f.read(&mut byte_buffer)?{
             num_bytes_read if num_bytes_read == 0 =>{
@@ -50,37 +50,37 @@ fn read_byte_by_byte(path: &str)-> Result<Vec<u8>,io::Error>{
     }
 
 
-    //i = 0;
-    // let binary:u8 = 0000_0000;
-    // let s = format!("{:b}",binary);
-    //println!("{}",s);
-    // for byte in &bytes{
-    //     print!("{:x?} ",byte);
-    //     if i%8 == 0{
-    //         println!("");
-    //     }
-    //     i+=1;
-    // }
+    i = 0;
+    let binary:u8 = 0000_0000;
+    let s = format!("{:b}",binary);
 
     let mut binary_values = vec![0u8,0];
     let mut index = 0;
     let mut binary:u8 = 0000_0000;
+    let mut nl_count = 0;
     //let s = format!("{:b}",binary);
-    for byte in &bytes{
-        if byte%2 != 0 {
-            binary = set_bit(binary,index);
-        }
+    for &byte in &bytes{
+        //let byte_val = byte as u8;
+        if nl_count >=3{
+            if byte%2 != 0 {
+                binary = set_bit(binary,index);
+            }
+            //print!("{:x?} ",byte);
+            index+=1;
+            if index%8 == 0{
+                binary_values.push(binary);
+                let s = format!("{:b}",binary);
+                let ch = binary as char;
+                let hex = format!("{:x}",binary);
+                println!("{} {} {}",s,hex,ch);
+                index=0;
+                binary=0;
+            }
+        }   
 
-        //print!("{:x?} ",byte);
-        index+=1;
-        if index%8 == 0{
-            binary_values.push(binary);
-            let s = format!("{:b}",binary);
-            let ch = binary as char;
-            let hex = format!("{:x}",binary);
-            println!("{} {} {}",s,hex,ch);
-            index=0;
-            binary=0;
+        if byte == 10 {
+            nl_count+=1;
+            println!("FOUND A NEWLINE");
         }
     }
     
