@@ -3,3 +3,4 @@
 *.txt
 project01/target/
 aux/
+*.ppm

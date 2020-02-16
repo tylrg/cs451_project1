@@ -12,7 +12,7 @@ fn main() -> std::io::Result<()> {
     //pattern matching for number of arguments
     match args.len() {
         1=>{
-            eprintln!("Need to have at least one argument")//reject
+            eprintln!("Need to have at least one argument: (path to input file) or (path to input file, path to message to hide)")//reject
         },
         2=>{
             read_byte_by_byte(&args[1])?;//read the message in the specidifed file
@@ -87,7 +87,6 @@ fn read_byte_by_byte(path: &str)-> Result<Vec<u8>,io::Error>{
 
     Ok(bytes)
 }
-
 //takes in a string literal name of the file and a string literal message
 fn write_message(path: &str,filename: &str)-> Result<Vec<u8>,io::Error>{
     
