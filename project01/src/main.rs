@@ -106,11 +106,8 @@ fn write_message(path: &str,filename: &str)-> Result<Vec<u8>,io::Error>{
     let mut byte_buffer = [0u8,8];//bytes being read in
 
     let mut message_bytes = vec![0u8,0];//values of chars as number
-    let mut binary_string = vec![0u8,0];
     message_bytes.pop();
     message_bytes.pop();
-    binary_string.pop();
-    binary_string.pop();
     for x in message.chars(){
         let message_binary = x as u8;
         message_bytes.push(message_binary);
