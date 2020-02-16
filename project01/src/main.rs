@@ -89,8 +89,11 @@ fn read_byte_by_byte(path: &str)-> Result<Vec<u8>,io::Error>{
 }
 
 //takes in a string literal name of the file and a string literal message
-fn write_message(path: &str,message: &str)-> Result<Vec<u8>,io::Error>{
+fn write_message(path: &str,filename: &str)-> Result<Vec<u8>,io::Error>{
     
+    let message = fs::read_to_string(filename)
+        .expect("Something went wrong reading the file");
+
     let mut f = fs::File::open(path)?;
     let mut bytes = vec![0u8,0];//vector of all of the bytes
     bytes.pop();
