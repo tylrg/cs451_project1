@@ -4,3 +4,4 @@
 project01/target/
 aux/
 *.ppm
+*.gz
