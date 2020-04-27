@@ -5,7 +5,8 @@ use std::io::prelude::*;
 
 //main method
 fn main() -> std::io::Result<()> {
-    
+    let current_dir = env::current_dir().expect("Fuck");
+    println!("Current Directory: {:?}:",current_dir);
     let args: Vec<String> = env::args().collect();//reading in arguments
     
     //pattern matching for number of arguments
@@ -112,7 +113,9 @@ fn write_message(path: &str,filename: &str)-> Result<Vec<u8>,io::Error>{
         let message_binary = x as u8;
         message_bytes.push(message_binary);
     }
-    message_bytes.push(0);
+
+    //string termination
+    //message_bytes.push(0);
     //looping through input file and reading bytes into buffer and then adding to bytes
     loop{
         match f.read(&mut byte_buffer)?{
